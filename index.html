@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Warship Craft (Web Prototype)</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="assets/icon_hull.png" />
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img src="assets/icon_hull.png" alt="" />
+      <div>
+        <div class="title">Warship Craft (Web Prototype)</div>
+        <div class="subtitle">Build → float → fight (in your browser)</div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <button id="btnHome" class="btn btn-ghost" title="Home">Home</button>
+      <button id="btnBuilder" class="btn">Builder</button>
+      <button id="btnBattle" class="btn btn-primary">Battle</button>
+      <a class="btn btn-ghost" href="README.html" target="_blank" rel="noopener">Help</a>
+    </nav>
+  </header>
+
+  <main class="main">
+    <section id="homeView" class="view view-active">
+      <div class="panel hero">
+        <h1>Recreating the feel of <em>Battleship Craft / Warship Craft</em></h1>
+        <p>
+          This is a lightweight prototype inspired by the classic block-based ship builder + naval combat loop
+          (build your ship from parts, then test it in a fight). The original games emphasised physics, buoyancy,
+          and performance depending on parts used. citeturn0search3turn0search16
+        </p>
+
+        <div class="hero-actions">
+          <button id="homeToBuilder" class="btn btn-primary">Start building</button>
+          <button id="homeToBattle" class="btn">Quick battle (demo ship)</button>
+        </div>
+
+        <div class="grid2">
+          <div class="card">
+            <h3>Builder</h3>
+            <ul>
+              <li>Place hull/armour/engine/cannon blocks</li>
+              <li>Instant stats + save/load</li>
+              <li>Designed for mouse or touch</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Battle</h3>
+            <ul>
+              <li>Simple buoyancy + drag</li>
+              <li>Drive, aim, shoot projectiles</li>
+              <li>Basic enemy AI</li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="fineprint">
+          Prototype scope note: this is not a 1:1 clone; it aims to capture the core loop and “feel”.
+          Ship-building depth in the originals includes many part types and tuning; this prototype keeps it minimal. citeturn0search7turn0search1
+        </p>
+      </div>
+    </section>
+
+    <section id="builderView" class="view">
+      <div class="panel">
+        <div class="split">
+          <div class="left">
+            <div class="toolbar">
+              <div class="tool-group">
+                <button class="tool" data-tool="hull"><img src="assets/icon_hull.png" alt="" /><span>Hull</span></button>
+                <button class="tool" data-tool="armor"><img src="assets/icon_armor.png" alt="" /><span>Armour</span></button>
+                <button class="tool" data-tool="engine"><img src="assets/icon_engine.png" alt="" /><span>Engine</span></button>
+                <button class="tool" data-tool="cannon"><img src="assets/icon_cannon.png" alt="" /><span>Cannon</span></button>
+                <button class="tool" data-tool="remove"><img src="assets/icon_remove.png" alt="" /><span>Remove</span></button>
+              </div>
+
+              <div class="tool-group">
+                <label class="label">Layer</label>
+                <input id="layerSlider" type="range" min="0" max="5" value="0" />
+                <div id="layerLabel" class="pill">z=0</div>
+              </div>
+
+              <div class="tool-group">
+                <button id="btnClear" class="btn btn-ghost">Clear</button>
+                <button id="btnSave" class="btn">Save</button>
+                <button id="btnLoad" class="btn">Load</button>
+              </div>
+            </div>
+
+            <div class="stats">
+              <div class="stat"><span>Blocks</span><b id="statBlocks">0</b></div>
+              <div class="stat"><span>Mass</span><b id="statMass">0</b></div>
+              <div class="stat"><span>Buoyancy</span><b id="statBuoy">0</b></div>
+              <div class="stat"><span>Thrust</span><b id="statThrust">0</b></div>
+              <div class="stat"><span>Firepower</span><b id="statFire">0</b></div>
+            </div>
+
+            <div class="hint">
+              <b>Controls</b>
+              <div>Tap / click to place a block on the grid. Hold <kbd>Shift</kbd> and tap to remove.</div>
+              <div>Use <b>Layer</b> to build upward. Keep the ship balanced so it floats level.</div>
+            </div>
+          </div>
+
+          <div class="right">
+            <canvas id="builderCanvas"></canvas>
+            <div class="canvas-overlay">
+              <div class="pill">Builder 3D Preview</div>
+              <div class="pill subtle">Drag to orbit • Scroll/pinch to zoom</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="battleView" class="view">
+      <div class="panel">
+        <div class="battle-wrap">
+          <canvas id="battleCanvas"></canvas>
+
+          <div class="hud">
+            <div class="hud-row">
+              <div class="pill">HP: <b id="hudHp">100</b></div>
+              <div class="pill">Enemy: <b id="hudEnemyHp">100</b></div>
+              <div class="pill subtle">WASD/Joystick: move • Mouse/touch: aim • Space/Fire: shoot</div>
+            </div>
+          </div>
+
+          <div class="battle-ui">
+            <button id="btnRespawn" class="btn btn-ghost">Respawn</button>
+            <button id="btnUseDemo" class="btn">Use demo ship</button>
+            <button id="btnUseSaved" class="btn btn-primary">Use saved ship</button>
+          </div>
+
+          <div id="mobileControls" class="mobile-controls">
+            <div class="stick" id="stick">
+              <div class="stick-knob" id="stickKnob"></div>
+            </div>
+            <button id="btnFire" class="btn btn-primary fire-btn">Fire</button>
+          </div>
+        </div>
+
+        <p class="fineprint">
+          The original iOS Warship Craft description highlights “3D and physics simulation” and ship performance
+          depending on parts, including buoyancy and durability. citeturn0search3
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>Made with Three.js + cannon-es • Runs on GitHub Pages</span>
+  </footer>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.164.1/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.164.1/examples/jsm/",
+      "cannon-es": "https://unpkg.com/cannon-es@0.20.0/dist/cannon-es.js"
+    }
+  }
+  </script>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

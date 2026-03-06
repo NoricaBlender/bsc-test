@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Help • Warship Craft (Web Prototype)</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="main">
+    <div class="panel hero">
+      <h1>Help / How to run</h1>
+      <p class="fineprint">This runs entirely in your browser. No build step.</p>
+
+      <h3>Option A — Run locally (recommended)</h3>
+      <ol>
+        <li>Download the project folder and unzip it.</li>
+        <li>Serve it with any static server (because browsers block ES module imports from <code>file://</code>).</li>
+      </ol>
+      <pre><code>python -m http.server 8000</code></pre>
+      <p>Then open: <code>http://localhost:8000</code></p>
+
+      <h3>Option B — Host on GitHub Pages</h3>
+      <ol>
+        <li>Create a new GitHub repo and upload the folder contents.</li>
+        <li>Repo → Settings → Pages → Deploy from branch → choose <code>main</code> / <code>root</code>.</li>
+        <li>Wait for GitHub to publish the site, then open the Pages URL.</li>
+      </ol>
+
+      <h3>Controls</h3>
+      <ul>
+        <li><b>Builder:</b> click/tap to place. Hold <b>Shift</b> + click/tap to remove.</li>
+        <li><b>Battle (desktop):</b> WASD to move, mouse to aim, Space to fire.</li>
+        <li><b>Battle (mobile):</b> joystick to move, Fire button to shoot.</li>
+      </ul>
+
+      <h3>Notes</h3>
+      <ul>
+        <li>Your ship save is stored in <code>localStorage</code> in your browser.</li>
+        <li>The buoyancy model is simplified: each block samples the water plane and applies lift/drag.</li>
+        <li>Part inspiration: the original games emphasise physics and part-dependent performance. citeturn0search3turn0search16</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
