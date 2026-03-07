@@ -1,0 +1,217 @@
+:root {
+  --bg: #0d1420;
+  --panel: rgba(12, 18, 28, 0.86);
+  --border: rgba(255, 255, 255, 0.12);
+  --text: #eaf2ff;
+  --muted: #b4c4da;
+  --accent: #67b2ff;
+  --danger: #ff8a8a;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: Inter, system-ui, Arial, sans-serif;
+  background: #09111a;
+  color: var(--text);
+}
+
+#appShell {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#renderCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+}
+
+.panel {
+  position: absolute;
+  z-index: 10;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.28);
+}
+
+#topBar {
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  padding: 12px 14px;
+}
+
+#topBarTitle {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+#topBarTitle h1 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+#modeLabel {
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.subline, .muted {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+#leftPanel {
+  left: 14px;
+  top: 112px;
+  width: 340px;
+  padding: 14px;
+  max-height: calc(100% - 210px);
+  overflow: auto;
+}
+
+#rightPanel {
+  right: 14px;
+  top: 112px;
+  width: 360px;
+  padding: 14px;
+  max-height: calc(100% - 210px);
+  overflow: auto;
+}
+
+.sectionTitle {
+  font-size: 0.88rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #8fb2d9;
+  margin: 0 0 10px 0;
+}
+
+.buttonGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+button {
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  color: var(--text);
+  padding: 10px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  font: inherit;
+}
+
+button:hover {
+  border-color: rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.09);
+}
+
+button.active {
+  border-color: rgba(103,178,255,0.8);
+  background: rgba(103,178,255,0.14);
+  box-shadow: inset 0 0 0 1px rgba(103,178,255,0.24);
+}
+
+button.primary {
+  background: linear-gradient(180deg, rgba(103,178,255,0.24), rgba(103,178,255,0.14));
+  border-color: rgba(103,178,255,0.5);
+}
+
+button.danger {
+  border-color: rgba(255,138,138,0.4);
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 999px;
+  padding: 6px 10px;
+  background: rgba(255,255,255,0.05);
+  margin: 4px 4px 0 0;
+  font-size: 0.88rem;
+}
+
+.readout {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  margin-top: 10px;
+  line-height: 1.45;
+}
+
+.hidden {
+  display: none;
+}
+
+#bottomBar {
+  left: 14px;
+  right: 14px;
+  bottom: 14px;
+  padding: 12px 14px;
+}
+
+#testControls {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+#testControls button {
+  min-height: 48px;
+  font-weight: 700;
+}
+
+.kbd {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
+  font-size: 0.82rem;
+}
+
+@media (max-width: 900px) {
+  #leftPanel, #rightPanel {
+    width: calc(50% - 21px);
+  }
+  #testControls {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  #leftPanel, #rightPanel {
+    position: absolute;
+    width: calc(100% - 28px);
+    max-height: 34%;
+  }
+  #rightPanel {
+    top: auto;
+    bottom: 110px;
+  }
+}

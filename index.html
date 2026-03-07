@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Babylon Ship Builder</title>
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+  <div id="appShell">
+    <canvas id="renderCanvas"></canvas>
+
+    <div id="topBar" class="panel">
+      <div id="topBarTitle">
+        <h1>Grid Ship Builder + Sea Trial</h1>
+        <div id="modeLabel">Build Mode</div>
+      </div>
+      <div class="subline">
+        Grid snap is <strong>0.5 m</strong>. Build any hull you want, then launch it into a flat sea with dynamic buoyancy, propeller thrust, and rudder steering.
+      </div>
+    </div>
+
+    <div id="leftPanel" class="panel">
+      <div id="buildPanel">
+        <p class="sectionTitle">Parts</p>
+        <div class="buttonGrid">
+          <button data-part="block">Hull Block</button>
+          <button data-part="gun">Gun</button>
+          <button data-part="boiler">Boiler</button>
+          <button data-part="propeller">Propeller</button>
+          <button data-part="rudder">Rudder</button>
+          <button data-part="erase" class="danger">Erase</button>
+        </div>
+
+        <p class="sectionTitle">Layer</p>
+        <div class="row">
+          <button id="btnLayerDown">Layer -</button>
+          <div class="badge">Current layer: <strong id="layerValue">0</strong></div>
+          <button id="btnLayerUp">Layer +</button>
+        </div>
+
+        <div class="readout" id="partInfo"></div>
+
+        <p class="sectionTitle">Blueprint tools</p>
+        <div class="row">
+          <button id="btnSample" class="primary">Load Sample</button>
+          <button id="btnClear" class="danger">Clear</button>
+          <button id="btnCopy">Copy JSON</button>
+          <button id="btnPaste">Paste JSON</button>
+        </div>
+
+        <div class="readout">
+          <div><strong>Build controls</strong></div>
+          <div>Left click = place / erase on current layer</div>
+          <div>Right drag = orbit camera</div>
+          <div>Mouse wheel = zoom</div>
+          <div><span class="kbd">[</span> and <span class="kbd">]</span> = change layer</div>
+        </div>
+      </div>
+
+      <div id="testPanel" class="hidden">
+        <p class="sectionTitle">Sea trial</p>
+        <div class="row">
+          <button id="btnBackToBuild">Back to Build</button>
+        </div>
+        <div class="readout">
+          <div><strong>Sea trial controls</strong></div>
+          <div><span class="kbd">W</span>/<span class="kbd">S</span> throttle up/down</div>
+          <div><span class="kbd">A</span>/<span class="kbd">D</span> steer left/right</div>
+          <div><span class="kbd">X</span> neutral throttle</div>
+          <div><span class="kbd">R</span> reset test</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="rightPanel" class="panel">
+      <p class="sectionTitle">Live info</p>
+      <div class="badge">Hover cell: <strong id="hoverValue">0, 0, 0</strong></div>
+      <div class="readout" id="shipStats"></div>
+      <div class="readout" id="testStats"></div>
+
+      <p class="sectionTitle">Design notes</p>
+      <div class="readout">
+        <div>• Every placed part contributes mass and displaced volume.</div>
+        <div>• More boilers increase propeller output.</div>
+        <div>• Rudders only work well when they are submerged and there is water flow past them.</div>
+        <div>• Top-heavy or under-buoyant ships will heel badly or sink.</div>
+      </div>
+    </div>
+
+    <div id="bottomBar" class="panel">
+      <div id="statusLine" class="muted">Ready.</div>
+      <div id="testControlsWrap" class="hidden">
+        <div id="testControls">
+        <button id="btnThrottleUp">Throttle +</button>
+        <button id="btnThrottleDown">Throttle -</button>
+        <button id="btnThrottleZero">Throttle 0</button>
+        <button id="btnRudderLeft">Rudder ◀</button>
+        <button id="btnRudderRight">Rudder ▶</button>
+        </div>
+      </div>
+      <div class="row" id="launchWrap" style="margin-top:10px">
+        <button id="btnTest" class="primary">Launch Sea Trial</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.babylonjs.com/babylon.js"></script>
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>
